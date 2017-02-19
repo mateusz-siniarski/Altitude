@@ -15,6 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AirPressureActivity" />
+
+        <service
+            android:name=".AirPressureIntentService"
+            android:exported="false" />
+        <service
+            android:name=".AirPressureService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
