@@ -1,36 +1,54 @@
 package com.matimac91.software.altitude;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    private SensorManager sm;
+    private Sensor pressureSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonGetAirPressure = (Button) findViewById(R.id.buttonGetAirPressure);
+        sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        pressureSensor = sm.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
-        buttonGetAirPressure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView pressure = (TextView) findViewById(R.id.textViewAirPressure);
 
-                AirPressureTest airp = new AirPressureTest();
-                airp.startListener();
+    }
 
-                String pressureValue = String.valueOf(airp.getCurrentAirPressure());
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sm.registerListener(this,pressureSensor,SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
-                pressure.setText(pressureValue);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sm.unregisterListener(this);
+    }
 
-                airp.stopListener();
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        TextView pressure = (TextView) findViewById(R.id.textViewAirPressure);
+        String pressureValue = String.valueOf(event.values[0]);
+        pressure.setText(pressureValue);
 
-            }
-        });
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 }

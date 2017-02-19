@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -20,12 +21,12 @@ public class AirPressureTest extends AppCompatActivity implements SensorEventLis
     @Override
     public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        //setContentView(R.layout.main);
 
         // Get an instance of the sensor service, and use that to get an instance of
         // a particular sensor.
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        //mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
     }
 
 
