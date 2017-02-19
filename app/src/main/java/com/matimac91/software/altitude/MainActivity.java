@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
-
+    //TODO: Create a service creating an TestDataObject having the GPS altitude and current air pressure
     private SensorManager sm;
     private Sensor pressureSensor;
 
